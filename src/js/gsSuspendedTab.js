@@ -314,6 +314,7 @@ var gsSuspendedTab = (function() {
     _document.getElementById('gsTopBarUrl').onclick = unsuspendTabHandler;
     _document.getElementById('gsTopBar').onmousedown = unsuspendTabHandler;
     _document.getElementById('suspendedMsg').onclick = unsuspendTabHandler;
+    _document.onkeypress = unsuspendTabHandler;
   }
 
   function buildUnsuspendTabHandler(_document, tab) {
@@ -322,7 +323,7 @@ var gsSuspendedTab = (function() {
       e.stopPropagation();
       if (e.target.id === 'setKeyboardShortcut') {
         chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
-      } else if (e.which === 1) {
+      } else if (e.which === 1 || (e.code === "Enter" || e.code === "Space")) {
         showUnsuspendAnimation(_document);
         tgs.unsuspendTab(tab);
       }
